@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f%tgfoa9wu!_3wt!1&ihoc4g-=szhl%u#09vf!df794#w@v1cu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pakkalocal.onrender.com','127.0.0.1']
+ALLOWED_HOSTS = ['pakka-local.onrender.com','127.0.0.1']
 
 
 # Application definition
