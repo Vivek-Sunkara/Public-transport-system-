@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://example.com/your-background-image.jpg'); /* Replace with your image URL */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            color: white; /* Change text color to white for better contrast */
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            padding: 30px;
+            width: 300px; /* Fixed width */
+            text-align: center;
+            opacity: 0; /* Start hidden */
+            transform: translateY(20px); /* Start lower */
+            animation: fadeInUp 0.5s forwards; /* Fade-in effect */
+            transition: transform 0.3s; /* Smooth transform transition */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1; /* Fully visible */
+                transform: translateY(0); /* Move to original position */
+            }
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333; /* Dark text color */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left; /* Align labels to the left */
+            color: #666; /* Gray color for labels */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%; /* Full width inputs */
+            padding: 10px;
+            margin-bottom: 15px; /* Space between inputs */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 5px; /* Rounded corners */
+            box-sizing: border-box; /* Include padding in width */
+            transition: border-color 0.3s; /* Smooth transition */
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus { /* Highlight border on focus */
+            border-color: #007BFF;
+            outline: none; /* Remove outline */
+        }
+
+        button {
+            background-color: #007BFF; /* Bootstrap primary color */
+            color: white; /* White text */
+            border: none; /* Remove default border */
+            padding: 10px;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+            width: 100%; /* Full width button */
+            font-size: 16px; /* Increase font size */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: translateY(-3px); /* Lift effect on hover */
+        }
+
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.8); /* Red background */
+            color: white; /* White text */
+            padding: 10px;
+            border-radius: 5px; /* Rounded corners */
+            margin-top: 15px;
+            opacity: 0; /* Start hidden */
+            transform: translateY(-10px); /* Start higher */
+            animation: fadeIn 0.5s forwards; /* Fade-in effect */
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* Fully visible */
+                transform: translateY(0); /* Move to original position */
+            }
+        }
+
+        p {
+            margin-top: 15px;
+        }
+
+        a {
+            text-decoration: none; /* Remove underline */
+            color: #007BFF; /* Link color */
+            font-weight: bold; /* Bold links */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        {% if form.non_field_errors %}
+            <div class="error-message" id="error-message" style="display: block;">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <form id="loginForm" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div id="loginFields">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        
+        <p><a href="{% url 'register' %}">Create an account</a></p>
+    </div>
+
+    <script>
+        // Show error message if it exists
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            errorMessage.style.display = 'block'; // Show the error message
+            errorMessage.style.animation = 'fadeIn 0.5s forwards'; // Trigger the fade-in animation
+        }
+    </script>
+</body>
+</html>

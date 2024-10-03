@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("{% static 'path_to_your_image.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 100px auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #ffcc00; /* Highlight color */
+            box-shadow: 0 0 5px rgba(255, 204, 0, 0.8);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffcc00;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff9900;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            display: none; /* Hide error messages initially */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <div class="error-message" id="username-error"></div>
+            
+            <input type="password" name="password" placeholder="Password" required>
+            <div class="error-message" id="password-error"></div>
+
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <div class="error-message" id="confirm-password-error"></div>
+
+            <button type="submit">Register</button>
+        </form>
+        <p><a href="{% url 'login' %}" style="color: #ffcc00; text-decoration: none;">Back to Login</a></p>
+    </div>
+
+    <script>
+        // Example of how to display error messages
+        const displayError = (elementId, message) => {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message; // Set the error message
+            errorElement.style.display = 'block'; // Show the error message
+        };
+
+        // Uncomment the following lines for actual error handling
+        // displayError('username-error', 'Username already taken.');
+        // displayError('password-error', 'Password must be at least 8 characters.');
+        // displayError('confirm-password-error', 'Passwords do not match.');
+    </script>
+</body>
+</html>

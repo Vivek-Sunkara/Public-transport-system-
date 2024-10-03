@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Button to Toggle Dashboard - Styled as Image */
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: url('https://i.pinimg.com/736x/87/b5/91/87b591fa7373b67283010a334b8ca3c6.jpg') no-repeat center center;
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 200px;
+            padding: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            color: #fff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Form Styles */
+        .settings-form {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .settings-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .settings-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .settings-form input, .settings-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .settings-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .settings-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="toggle-button" onclick="toggleDashboard()"></button>
+
+    <div class="sidebar" id="sidebar">
+        <h2>My Dashboard</h2>
+        <a href="{% url 'page1' %}">Home</a>
+        <a href="{% url 'reports' %}">Reports</a>
+        <a href="{% url 'users' %}">Users</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <script>
+        function toggleDashboard() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+
+    <h1>Edit Profile Settings</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ user.username }}" required>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" value="{{ user.age }}">
+
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" value="{{ user.gender }}">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ user.email }}" required>
+
+        <label for="mobile_number">Mobile Number:</label>
+        <input type="text" id="mobile_number" name="mobile_number" value="{{ user.mobile_number }}">
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" value="{{ user.address }}">
+
+        <label for="profile_pic">Profile Picture:</label>
+        <input type="file" id="profile_pic" name="profile_pic">
+
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="{% url 'users' %}">Back to Profile</a>
+
+</body>
+</html>

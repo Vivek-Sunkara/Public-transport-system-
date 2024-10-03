@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow: hidden; /* Prevent scrolling when sidebar is active */
+        }
+
+        /* Button to Toggle Dashboard - Styled as Image */
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: url('https://i.pinimg.com/736x/87/b5/91/87b591fa7373b67283010a334b8ca3c6.jpg') no-repeat center center;
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            z-index: 100;
+            transition: transform 0.2s ease;
+        }
+
+        .toggle-button:hover {
+            transform: scale(1.1); /* Slightly enlarge button on hover */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 200px;
+            padding: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%); /* Start hidden */
+        }
+
+        .sidebar.active {
+            transform: translateX(0); /* Visible when active */
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            animation: fadeIn 0.5s; /* Animation for sidebar title */
+        }
+
+        .sidebar a {
+            color: #fff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s; /* Smooth transition for background */
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Style for the table */
+        .dataframe {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow to table */
+            background-color: #fff; /* Table background */
+            border-radius: 8px; /* Rounded corners */
+            overflow: hidden; /* Round corners for the table */
+        }
+
+        .dataframe th, .dataframe td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            transition: background-color 0.3s; /* Smooth transition for background color */
+        }
+
+        .dataframe th {
+            background-color: #4CAF50; /* Header background color */
+            color: white; /* Header text color */
+            text-align: left;
+        }
+
+        .dataframe tr:hover td {
+            background-color: #f1f1f1; /* Change row color on hover */
+        }
+
+        /* Keyframe animation for sidebar title */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-button" onclick="toggleSidebar()"></button>
+    <div class="sidebar" id="sidebar">
+        <h2>Dashboard</h2>
+        <a href="{% url 'page1' %}">Home</a>
+        <a href="{% url 'reports' %}">Reports</a>
+        <a href="{% url 'users' %}">Users</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+            document.body.classList.toggle('sidebar-active'); // Optional: prevents body scrolling
+        }
+    </script>
+
+    <div style="margin-left: 220px; padding: 20px;"> <!-- Add margin to content -->
+        <h1 style="font-size: 28px; color: #333;">Reports</h1>
+        <div>
+            {{ table|safe }}  <!-- Safely render the HTML table -->
+        </div>
+    </div>
+</body>
+</html>

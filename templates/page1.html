@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Button to Toggle Dashboard - Styled as Image */
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: url('https://i.pinimg.com/736x/87/b5/91/87b591fa7373b67283010a334b8ca3c6.jpg') no-repeat center center;
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            z-index: 100;
+            transition: transform 0.2s ease;
+        }
+
+        .toggle-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 200px;
+            padding: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            color: #fff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 220px; /* Give space for the sidebar */
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Form Styling */
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Result Display Styling */
+        .result-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(20px); /* Start below */
+            animation: fadeInUp 0.5s forwards; /* Apply animation */
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Transport Cost Table */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .cost-table th, .cost-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .cost-table th {
+            background: #007bff;
+            color: white;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        p {
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #e9ecef;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(20px); /* Start below */
+            animation: fadeInUp 0.5s forwards; /* Apply animation */
+        }
+
+        li:hover {
+            background: #d0d0d0;
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Button to Toggle the Dashboard -->
+    <button class="toggle-button" onclick="toggleDashboard()"></button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>My Dashboard</h2>
+        <a href="{% url 'page1' %}">Home</a>
+        <a href="{% url 'reports' %}">Reports</a>
+        <a href="{% url 'users' %}">Users</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <script>
+        // JavaScript function to toggle the dashboard visibility
+        function toggleDashboard() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+            // Adjust main content margin accordingly
+            var mainContent = document.querySelector('.main-content');
+            if (sidebar.classList.contains('active')) {
+                mainContent.style.marginLeft = '220px';
+            } else {
+                mainContent.style.marginLeft = '0';
+            }
+        }
+    </script>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Welcome to the PAKKA_LOCAL</h1>
+
+        <!-- Input Form -->
+        <form method="POST">
+            {% csrf_token %}
+            <label for="current_location">Current Location:</label>
+            <input type="text" id="current_location" name="current_location" required>
+            
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required>
+            
+            <button type="submit">Get Route</button>
+        </form>
+
+        <!-- Display Direct Route and Costs -->
+        {% if direct_route %}
+            <div class="result-card">
+                <h2>Direct Route: {{ direct_route.route_no }}</h2>
+                <p><strong>Stops:</strong></p>
+                <ul>
+                    {% for stop in direct_route.stops %}
+                        <li>{{ stop }}</li>
+                    {% endfor %}
+                </ul>
+                <p><strong>Details:</strong></p>
+                <p>Distance: {{ direct_route.details.distance }}</p>
+                <p>Total Stops: {{ direct_route.details.total_stops }}</p>
+                <p>Start Time: {{ direct_route.details.start_time }}</p>
+                <p>End Time: {{ direct_route.details.end_time }}</p>
+            </div>
+
+            <!-- Transport Costs Table -->
+            <h2>Transport Costs</h2>
+            <table class="cost-table">
+                <tr>
+                    <th>Local Bus</th>
+                    <th>Rapido</th>
+                    <th>Ola</th>
+                    <th>Uber</th>
+                </tr>
+                <tr>
+                    <td>{{ costs.bus_cost }}</td>
+                    <td>
+                        <strong>Bike:</strong> {{ costs.rapido.bike }}<br>
+                        <strong>Auto:</strong> {{ costs.rapido.auto }}<br>
+                        <strong>Car:</strong> {{ costs.rapido.car }}
+                    </td>
+                    <td>
+                        <strong>Bike:</strong> {{ costs.ola.bike }}<br>
+                        <strong>Auto:</strong> {{ costs.ola.auto }}<br>
+                        <strong>Car:</strong> {{ costs.ola.car }}
+                    </td>
+                    <td>
+                        <strong>Bike:</strong> {{ costs.uber.bike }}<br>
+                        <strong>Auto:</strong> {{ costs.uber.auto }}<br>
+                        <strong>Car:</strong> {{ costs.uber.car }}
+                    </td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
