@@ -7,10 +7,19 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-image: url('https://wallpaperset.com/w/full/e/d/1/457524.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            overflow: hidden; /* Prevent scrolling when sidebar is active */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #f0f0f0; /* Changed to a lighter color */
+            overflow: hidden;
+            background-size: 100% 100%;
+            animation: fadeIn 1s; /* Fade-in animation for the background */
         }
 
         /* Button to Toggle Dashboard - Styled as Image */
@@ -34,8 +43,8 @@
 
         /* Sidebar */
         .sidebar {
-            background-color: #333;
-            color: #fff;
+            background-color: rgba(50, 50, 50, 0.9); /* Slightly transparent dark background */
+            color: #f0f0f0; /* Lighter text color */
             width: 200px;
             padding: 20px;
             position: absolute;
@@ -58,7 +67,7 @@
         }
 
         .sidebar a {
-            color: #fff;
+            color: #f0f0f0; /* Lighter link color */
             display: block;
             padding: 10px;
             text-decoration: none;
@@ -66,7 +75,7 @@
         }
 
         .sidebar a:hover {
-            background-color: #575757;
+            background-color: rgba(100, 100, 100, 0.7); /* Slightly lighter on hover */
         }
 
         /* Style for the table */
@@ -74,26 +83,30 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow to table */
-            background-color: #fff; /* Table background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Darker shadow for table */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background for the table */
             border-radius: 8px; /* Rounded corners */
             overflow: hidden; /* Round corners for the table */
         }
 
         .dataframe th, .dataframe td {
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border color for the table */
             padding: 12px;
             transition: background-color 0.3s; /* Smooth transition for background color */
         }
 
         .dataframe th {
-            background-color: #4CAF50; /* Header background color */
+            background-color: rgba(76, 175, 80, 0.8); /* Header background color with transparency */
             color: white; /* Header text color */
             text-align: left;
         }
 
+        .dataframe tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.15); /* Light background for even rows */
+        }
+
         .dataframe tr:hover td {
-            background-color: #f1f1f1; /* Change row color on hover */
+            background-color: rgba(241, 241, 241, 0.3); /* Change row color on hover */
         }
 
         /* Keyframe animation for sidebar title */
@@ -123,7 +136,7 @@
     </script>
 
     <div style="margin-left: 220px; padding: 20px;"> <!-- Add margin to content -->
-        <h1 style="font-size: 28px; color: #333;">Reports</h1>
+        <h1 style="font-size: 28px; color: #f0f0f0;">Reports</h1> <!-- Updated title color -->
         <div>
             {{ table|safe }}  <!-- Safely render the HTML table -->
         </div>

@@ -6,10 +6,25 @@
     <title>User Profile</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://wallpaperset.com/w/full/e/d/1/457524.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ffffff;
+            overflow: hidden;
+            background-size: 100% 100%;
+            animation: fadeIn 1s; /* Fade-in animation for the background */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .toggle-button {
@@ -23,12 +38,17 @@
             border: none;
             cursor: pointer;
             z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .toggle-button:hover {
+            transform: scale(1.1);
         }
 
         .sidebar {
-            background-color: #333;
-            color: #fff;
-            width: 200px;
+            background-color: rgba(0, 0, 0, 0.8); /* Slight transparency for sidebar */
+            color: #ffffff;
+            width: 220px;
             padding: 20px;
             position: absolute;
             left: 0;
@@ -36,6 +56,7 @@
             bottom: 0;
             transition: transform 0.3s ease-in-out;
             transform: translateX(-100%);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
         }
 
         .sidebar.active {
@@ -45,6 +66,7 @@
         .sidebar h2 {
             text-align: center;
             margin-bottom: 20px;
+            color: #f0f0f0;
         }
 
         .sidebar a {
@@ -52,24 +74,41 @@
             display: block;
             padding: 10px;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
 
         .sidebar a:hover {
-            background-color: #575757;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .user-details {
             max-width: 800px;
-            margin: 50px auto;
+            width: 100%; /* Set width to 100% */
+            margin: 0 auto; /* Centering the card */
             padding: 20px;
-            background: #fff;
+            background: rgba(0, 0, 0, 0.7); /* Darker background for user details */
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.5s forwards; /* Slide-in animation for user details */
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .user-details h1 {
             text-align: center;
-            color: #333;
+            color: #ffcc00; /* Gold color for headings */
+            margin-bottom: 20px;
         }
 
         .profile-pic {
@@ -79,31 +118,43 @@
             width: 150px;
             height: 150px;
             object-fit: cover;
+            border: 4px solid #ffcc00; /* Gold border around profile picture */
+            transition: transform 0.3s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
         }
 
         .detail {
             margin: 10px 0;
             padding: 10px;
-            background: #f9f9f9;
+            background: rgba(255, 255, 255, 0.1); /* Slightly transparent background for details */
             border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .detail:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .edit-button {
             display: block;
             margin: 20px auto;
             padding: 10px 15px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #ffcc00; /* Gold button */
+            color: #333;
             border: none;
             border-radius: 4px;
             text-align: center;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
             text-decoration: none;
         }
 
         .edit-button:hover {
-            background-color: #0056b3;
+            background-color: #e6b800;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -126,8 +177,9 @@
             sidebar.classList.toggle('active');
         }
     </script>
-    <h1>User Profile</h1>
+
     <div class="user-details">
+        <h1>User Profile</h1>
         <!-- Display Profile Picture -->
         {% if user.profile_pic %}
         <img src="{{ user.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
@@ -135,13 +187,13 @@
         <img src="default_profile_pic_url" alt="Default Profile Picture" class="profile-pic">
         {% endif %}
 
-        <p><strong>Username:</strong> {{ user.username }}</p>
-        <p><strong>Age:</strong> {{ user.age }}</p>
-        <p><strong>Gender:</strong> {{ user.gender }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Mobile Number:</strong> {{ user.mobile_number }}</p>
-        <p><strong>Address:</strong> {{ user.address }}</p>
+        <p class="detail"><strong>Username:</strong> {{ user.username }}</p>
+        <p class="detail"><strong>Age:</strong> {{ user.age }}</p>
+        <p class="detail"><strong>Gender:</strong> {{ user.gender }}</p>
+        <p class="detail"><strong>Email:</strong> {{ user.email }}</p>
+        <p class="detail"><strong>Mobile Number:</strong> {{ user.mobile_number }}</p>
+        <p class="detail"><strong>Address:</strong> {{ user.address }}</p>
     </div>
-    <a href="{% url 'settings' %}">Edit Profile</a>
+    <a href="{% url 'settings' %}" class="edit-button">Edit Profile</a>
 </body>
 </html>

@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dashboard</title>
+    <title>Welcome to PAKKA_LOCAL</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-image: url('https://wallpaperset.com/w/full/e/d/1/457524.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            overflow: hidden;
+            background-size: 100% 100%;
+            animation: fadeIn 1s; /* Fade-in animation for the background */
         }
 
         /* Button to Toggle Dashboard - Styled as Image */
@@ -34,7 +43,7 @@
 
         /* Sidebar */
         .sidebar {
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.9);
             color: #fff;
             width: 200px;
             padding: 20px;
@@ -74,11 +83,12 @@
             margin-left: 220px; /* Give space for the sidebar */
             padding: 20px;
             transition: margin-left 0.3s ease;
+            max-width: 800px; /* Limit width for better readability */
         }
 
         /* Form Styling */
         form {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -88,6 +98,7 @@
         label {
             display: block;
             margin-bottom: 5px;
+            color: #333;
         }
 
         input[type="text"] {
@@ -118,29 +129,12 @@
             background-color: #0056b3;
         }
 
-        /* Result Display Styling */
-        .result-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            margin: 20px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
-            opacity: 0; /* Start hidden for animation */
-            transform: translateY(20px); /* Start below */
-            animation: fadeInUp 0.5s forwards; /* Apply animation */
-        }
-
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
         /* Transport Cost Table */
         .cost-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .cost-table th, .cost-table td {
@@ -148,6 +142,7 @@
             padding: 10px;
             text-align: center;
             background: #f9f9f9;
+            color: #333;
         }
 
         .cost-table th {
@@ -160,40 +155,13 @@
             color: #333;
         }
 
-        p {
-            line-height: 1.5;
-            margin: 10px 0;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-            opacity: 0; /* Start hidden for animation */
-            transform: translateY(20px); /* Start below */
-            animation: fadeInUp 0.5s forwards; /* Apply animation */
-        }
-
-        li:hover {
-            background: #d0d0d0;
-        }
-
         /* Animation keyframes */
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
             }
         }
     </style>
@@ -246,20 +214,18 @@
 
         <!-- Display Direct Route and Costs -->
         {% if direct_route %}
-            <div class="result-card">
-                <h2>Direct Route: {{ direct_route.route_no }}</h2>
-                <p><strong>Stops:</strong></p>
-                <ul>
-                    {% for stop in direct_route.stops %}
-                        <li>{{ stop }}</li>
-                    {% endfor %}
-                </ul>
-                <p><strong>Details:</strong></p>
-                <p>Distance: {{ direct_route.details.distance }}</p>
-                <p>Total Stops: {{ direct_route.details.total_stops }}</p>
-                <p>Start Time: {{ direct_route.details.start_time }}</p>
-                <p>End Time: {{ direct_route.details.end_time }}</p>
-            </div>
+            <h2>Direct Route: {{ direct_route.route_no }}</h2>
+            <p><strong>Stops:</strong></p>
+            <ul>
+                {% for stop in direct_route.stops %}
+                    <li>{{ stop }}</li>
+                {% endfor %}
+            </ul>
+            <p><strong>Details:</strong></p>
+            <p>Distance: {{ direct_route.details.distance }}</p>
+            <p>Total Stops: {{ direct_route.details.total_stops }}</p>
+            <p>Start Time: {{ direct_route.details.start_time }}</p>
+            <p>End Time: {{ direct_route.details.end_time }}</p>
 
             <!-- Transport Costs Table -->
             <h2>Transport Costs</h2>

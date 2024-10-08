@@ -7,116 +7,133 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://example.com/your-background-image.jpg'); /* Replace with your image URL */
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the background image */
+            background-image: url('https://st5.depositphotos.com/40831476/67385/i/450/depositphotos_673858616-stock-photo-modern-architecture-city-panorama.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Full viewport height */
-            color: white; /* Change text color to white for better contrast */
-            overflow: hidden; /* Hide scrollbars */
+            height: 100vh;
+            color: white;
+            overflow: hidden;
+            background-size: 100% 100%;
+            animation: fadeIn 1s; /* Fade-in animation for the background */
         }
 
-        .login-container {
-            background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
-            padding: 30px;
-            width: 300px; /* Fixed width */
-            text-align: center;
-            opacity: 0; /* Start hidden */
-            transform: translateY(20px); /* Start lower */
-            animation: fadeInUp 0.5s forwards; /* Fade-in effect */
-            transition: transform 0.3s; /* Smooth transform transition */
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1; /* Fully visible */
-                transform: translateY(0); /* Move to original position */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
             }
         }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #333; /* Dark text color */
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+            border-radius: 10px; 
+            padding: 40px;
+            width: 350px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37); /* Smooth shadow */
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out; /* Animation for the container */
         }
 
-        label {
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-container h2 {
+            color: white; 
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .login-container label {
             display: block;
+            color: white;
+            text-align: left;
+            font-size: 14px;
             margin-bottom: 5px;
-            text-align: left; /* Align labels to the left */
-            color: #666; /* Gray color for labels */
         }
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%; /* Full width inputs */
-            padding: 10px;
-            margin-bottom: 15px; /* Space between inputs */
-            border: 1px solid #ccc; /* Light gray border */
-            border-radius: 5px; /* Rounded corners */
-            box-sizing: border-box; /* Include padding in width */
-            transition: border-color 0.3s; /* Smooth transition */
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1); 
+            color: white;
+            font-size: 14px;
         }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus { /* Highlight border on focus */
-            border-color: #007BFF;
-            outline: none; /* Remove outline */
+        .login-container input[type="text"]:focus,
+        .login-container input[type="password"]:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        button {
-            background-color: #007BFF; /* Bootstrap primary color */
-            color: white; /* White text */
-            border: none; /* Remove default border */
-            padding: 10px;
-            border-radius: 5px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor */
-            width: 100%; /* Full width button */
-            font-size: 16px; /* Increase font size */
-            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1E90FF; 
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-            transform: translateY(-3px); /* Lift effect on hover */
+        .login-container button:hover {
+            background-color: #1C86EE;
         }
 
-        .error-message {
-            background-color: rgba(255, 0, 0, 0.8); /* Red background */
-            color: white; /* White text */
-            padding: 10px;
-            border-radius: 5px; /* Rounded corners */
+        .login-container p {
+            color: white;
+            font-size: 12px;
             margin-top: 15px;
-            opacity: 0; /* Start hidden */
-            transform: translateY(-10px); /* Start higher */
-            animation: fadeIn 0.5s forwards; /* Fade-in effect */
-            display: none; /* Hidden by default */
+        }
+
+        .login-container a {
+            color: #1E90FF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Adjust the error message styling */
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.7); 
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeIn 0.5s forwards;
         }
 
         @keyframes fadeIn {
             to {
-                opacity: 1; /* Fully visible */
-                transform: translateY(0); /* Move to original position */
+                opacity: 1;
+                transform: translateY(0);
             }
-        }
-
-        p {
-            margin-top: 15px;
-        }
-
-        a {
-            text-decoration: none; /* Remove underline */
-            color: #007BFF; /* Link color */
-            font-weight: bold; /* Bold links */
-        }
-
-        a:hover {
-            text-decoration: underline; /* Underline on hover */
         }
     </style>
 </head>
@@ -129,26 +146,21 @@
         {% endif %}
         <form id="loginForm" method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <div id="loginFields">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
 
-                <button type="submit">Login</button>
-            </div>
+            <button type="submit">Login</button>
         </form>
-        
         <p><a href="{% url 'register' %}">Create an account</a></p>
     </div>
 
     <script>
-        // Show error message if it exists
         const errorMessage = document.getElementById('error-message');
         if (errorMessage) {
-            errorMessage.style.display = 'block'; // Show the error message
-            errorMessage.style.animation = 'fadeIn 0.5s forwards'; // Trigger the fade-in animation
+            errorMessage.style.display = 'block';
         }
     </script>
 </body>

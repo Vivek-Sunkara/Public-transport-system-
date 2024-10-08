@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +8,21 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url("{% static 'path_to_your_image.jpg' %}") no-repeat center center fixed;
+            background-image: url('https://st5.depositphotos.com/40831476/67385/i/450/depositphotos_673858616-stock-photo-modern-architecture-city-panorama.jpg');
             background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             color: white;
+            overflow: hidden;
+            background-size: 100% 100%;
+            animation: fadeIn 1s; /* Fade-in animation for the background */
         }
+
         .container {
             background-color: rgba(0, 0, 0, 0.7);
             border-radius: 8px;
@@ -69,6 +79,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <h2>Register</h2>
         <form method="POST" action="">
